@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KitchenObject : MonoBehaviour
 {
-    [SerializeField] private KitchenObjectSO kitchenObjectSO;
+    public KitchenObjectSO kitchenObjectSO;
 
     private IKitchenObjectParent kitchenObjectParent;
     public KitchenObjectSO GetKitchenObjectSO()
@@ -30,6 +30,7 @@ public class KitchenObject : MonoBehaviour
         transform.parent = kitchenObjectParent.GetKitchenObjectFollowTransform();
         transform.localPosition = Vector3.zero;
     }
+
 
     public IKitchenObjectParent GetKitchenObjectParent()
     {
