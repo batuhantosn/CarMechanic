@@ -2,36 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseCounter : MonoBehaviour, IKitchenObjectParent{
+public class BaseCounter : MonoBehaviour, IMechanicObjectParent{
 
     [SerializeField] private Transform counterTopPoint;
 
-    protected KitchenObject kitchenObject;
+    protected MechanicObject mechanicObject;
 
     public virtual void Interact(Player player)
     {
         Debug.LogError("BaseCounter.Interacrt();");
     }
 
-    public Transform GetKitchenObjectFollowTransform()
+    public Transform GetMechanicObjectFollowTransform()
     {
         return counterTopPoint;
     }
 
-    public void SetKitchenObject(KitchenObject kitchenObject)
+    public void SetMechanicObject(MechanicObject kitchenObject)
     {
-        this.kitchenObject = kitchenObject;
+        this.mechanicObject = kitchenObject;
     }
-    public KitchenObject GetKitchenObject()
+    public MechanicObject GetMechanicObject()
     {
-        return kitchenObject;
+        return mechanicObject;
     }
-    public void ClearKitchenObject()
+    public void ClearMechanicObject()
     {
-        kitchenObject = null;
+        mechanicObject = null;
     }
-    public bool HasKitchenObject()
+    public bool HasMechanicObject()
     {
-        return kitchenObject != null;
+        return mechanicObject != null;
     }
 }

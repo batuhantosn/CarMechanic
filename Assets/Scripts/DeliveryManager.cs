@@ -17,15 +17,15 @@ public class DeliveryManager : BaseCounter
 
     public override void Interact(Player player)
     {
-        if (!HasKitchenObject())
+        if (!HasMechanicObject())
         {
             //No object here
-            if (player.HasKitchenObject())
+            if (player.HasMechanicObject())
             {
                 //Player is carrying something
                 DeliverCheck();
-                player.GetKitchenObject().SetKitchenObjectParent(this);
-                this.kitchenObject.DestroySelf();
+                player.GetMechanicObject().SetKitchenObjectParent(this);
+                this.mechanicObject.DestroySelf();
 
             }
             else
@@ -37,14 +37,14 @@ public class DeliveryManager : BaseCounter
         else
         {
             //There is a object 
-            if (player.HasKitchenObject())
+            if (player.HasMechanicObject())
             {
                 //Player is carrying smthng
             }
             else
             {
                 //PLayer is not carrying anything
-                GetKitchenObject().SetKitchenObjectParent(player);
+                GetMechanicObject().SetKitchenObjectParent(player);
             }
         }
     }
@@ -79,7 +79,7 @@ public class DeliveryManager : BaseCounter
         {
             foreach (var food in deliveryItemsList)
             {
-                if (food.GetComponent<SpriteRenderer>().sprite == Player.Instance.GetKitchenObject().kitchenObjectSO.sprite)
+                if (food.GetComponent<SpriteRenderer>().sprite == Player.Instance.GetMechanicObject().mechanicObjectSO.sprite)
                 {
                     //True Item
                     Debug.Log("True Item");
@@ -99,7 +99,7 @@ public class DeliveryManager : BaseCounter
                 {
                     //Wrong Item
                     Debug.Log("Wrong Item");
-                    Debug.Log(food + " " + Player.Instance.GetKitchenObject().kitchenObjectSO);
+                    Debug.Log(food + " " + Player.Instance.GetMechanicObject().mechanicObjectSO);
                 }
             }
         }

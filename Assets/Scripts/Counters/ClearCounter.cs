@@ -10,13 +10,13 @@ public class ClearCounter: BaseCounter
 
     public override void Interact(Player player)
     {
-        if (!HasKitchenObject())
+        if (!HasMechanicObject())
         {
             //No object here
-            if (player.HasKitchenObject())
+            if (player.HasMechanicObject())
             {
                 //Player is carrying something
-                player.GetKitchenObject().SetKitchenObjectParent(this);
+                player.GetMechanicObject().SetKitchenObjectParent(this);
             }
             else
             {
@@ -27,14 +27,14 @@ public class ClearCounter: BaseCounter
         else
         {
             //There is a object 
-            if (player.HasKitchenObject())
+            if (player.HasMechanicObject())
             {
                 //Player is carrying smthng
             }
             else
             {
                 //PLayer is not carrying anything
-                GetKitchenObject().SetKitchenObjectParent(player);
+                GetMechanicObject().SetKitchenObjectParent(player);
             }
         }
     }

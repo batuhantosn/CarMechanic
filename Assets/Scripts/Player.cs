@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Security.Policy;
 using UnityEngine;
 
-public class Player : MonoBehaviour , IKitchenObjectParent
+public class Player : MonoBehaviour , IMechanicObjectParent
 {
     public static Player Instance { get; private set; }
     
@@ -18,12 +18,12 @@ public class Player : MonoBehaviour , IKitchenObjectParent
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask countersLayerMask;
-    [SerializeField] private Transform kitchenObjectHoldPoint;
+    [SerializeField] private Transform mechanicObjectHoldPoint;
 
     private bool isWalking;
     private Vector3 lastInteractDir;
     private BaseCounter selectedCounter;
-    private KitchenObject kitchenObject;
+    private MechanicObject mechanicObject;
 
     private void Awake()
     {
@@ -147,26 +147,26 @@ public class Player : MonoBehaviour , IKitchenObjectParent
         });
     }
 
-    public Transform GetKitchenObjectFollowTransform()
+    public Transform GetMechanicObjectFollowTransform()
     {
-        return kitchenObjectHoldPoint;
+        return mechanicObjectHoldPoint;
     }
 
-    public void SetKitchenObject(KitchenObject kitchenObject)
+    public void SetMechanicObject(MechanicObject mechanicObject)
     {
-        this.kitchenObject = kitchenObject;
+        this.mechanicObject = mechanicObject;
     }
-    public KitchenObject GetKitchenObject()
+    public MechanicObject GetMechanicObject()
     {
-        return kitchenObject;
+        return mechanicObject;
     }
-    public void ClearKitchenObject()
+    public void ClearMechanicObject()
     {
-        kitchenObject = null;
+        mechanicObject = null;
     }
-    public bool HasKitchenObject()
+    public bool HasMechanicObject()
     {
-        return kitchenObject != null;
+        return mechanicObject != null;
     }
 
 }
