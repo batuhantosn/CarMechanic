@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class DeliveryManager : BaseCounter
     [SerializeField] private int KitchenObjectCount;
 
     public Sprite checksprite;
+    private int deliveredItem = 3;
 
     public override void Interact(Player player)
     {
@@ -23,7 +25,7 @@ public class DeliveryManager : BaseCounter
                 //Player is carrying something
                 DeliverCheck();
                 player.GetKitchenObject().SetKitchenObjectParent(this);
-
+                this.kitchenObject.DestroySelf();
 
             }
             else
@@ -70,28 +72,38 @@ public class DeliveryManager : BaseCounter
             deliveryItemsList[i].GetComponent<SpriteRenderer>().sprite = waitingRecipeSOList[i].sprite;
         }
     }
-        public void DeliverCheck()
+    public void DeliverCheck()
+    {
+        
+        if (waitingRecipeSOList.Count != 0)
         {
-            if (waitingRecipeSOList.Count != 0)
+            foreach (var food in deliveryItemsList)
             {
-                foreach (var food in deliveryItemsList)
+                if (food.GetComponent<SpriteRenderer>().sprite == Player.Instance.GetKitchenObject().kitchenObjectSO.sprite)
                 {
-                    if (food.GetComponent<SpriteRenderer>().sprite == Player.Instance.GetKitchenObject().kitchenObjectSO.sprite)
+                    //True Item
+                    Debug.Log("True Item");
+                    food.GetComponent<SpriteRenderer>().sprite = checksprite;
+                    deliveredItem--;
+                    Debug.Log(deliveredItem);
+                    if (deliveredItem==0)
                     {
-                        //True Item
-                        Debug.Log("True Item");
-                        food.GetComponent<SpriteRenderer>().sprite = checksprite;
-                        
-                }
-                    else
-                    {
-                        //Wrong Item
-                        Debug.Log("Wrong Item");
-                        Debug.Log(food + " " + Player.Instance.GetKitchenObject().kitchenObjectSO);
+                        deliveredItem = 3;
+                        GetReciveFromCar();
+                        SetDeliveryItems();
+                        //Give Gold
                     }
+                    break;
+                }
+                else
+                {
+                    //Wrong Item
+                    Debug.Log("Wrong Item");
+                    Debug.Log(food + " " + Player.Instance.GetKitchenObject().kitchenObjectSO);
                 }
             }
         }
     }
+}
 
 
