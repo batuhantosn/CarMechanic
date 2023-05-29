@@ -5,6 +5,7 @@ using UnityEngine;
 public class KitchenObject : MonoBehaviour
 {
     public KitchenObjectSO kitchenObjectSO;
+    
 
     private IKitchenObjectParent kitchenObjectParent;
     public KitchenObjectSO GetKitchenObjectSO()

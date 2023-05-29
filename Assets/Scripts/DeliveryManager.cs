@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeliveryManager : BaseCounter
 {
+    public List<GameObject> deliveryItemsList;
+
     [SerializeField] private RecipeSO recipeListSO;
     private List<KitchenObjectSO> waitingRecipeSOList;
     [SerializeField] private int KitchenObjectCount;
+
+    public Sprite checksprite;
 
     public override void Interact(Player player)
     {
@@ -18,7 +23,7 @@ public class DeliveryManager : BaseCounter
                 //Player is carrying something
                 DeliverCheck();
                 player.GetKitchenObject().SetKitchenObjectParent(this);
-                
+
 
             }
             else
@@ -45,6 +50,7 @@ public class DeliveryManager : BaseCounter
     private void Awake()
     {
         GetReciveFromCar();
+        SetDeliveryItems();
     }
     public void GetReciveFromCar()
     {
@@ -52,30 +58,40 @@ public class DeliveryManager : BaseCounter
         for (int i = 0; i < KitchenObjectCount; i++)
         {
             waitingRecipeSOList.Add(recipeListSO.GetRandomKitchenObject());
+
             Debug.Log(waitingRecipeSOList[i]);
         }
 
     }
-    public void DeliverCheck()
+    public void SetDeliveryItems()
     {
-        if (waitingRecipeSOList.Count != 0)
+        for (int i = 0; i < waitingRecipeSOList.Count; i++)
         {
-            foreach (var food in waitingRecipeSOList)
+            deliveryItemsList[i].GetComponent<SpriteRenderer>().sprite = waitingRecipeSOList[i].sprite;
+        }
+    }
+        public void DeliverCheck()
+        {
+            if (waitingRecipeSOList.Count != 0)
             {
-                if (food == Player.Instance.GetKitchenObject().kitchenObjectSO)
+                foreach (var food in deliveryItemsList)
                 {
-                    //True Ýtem
-                    Debug.Log("True Item");
-                    //waitingRecipeSOList.Remove(food);
-
+                    if (food.GetComponent<SpriteRenderer>().sprite == Player.Instance.GetKitchenObject().kitchenObjectSO.sprite)
+                    {
+                        //True Item
+                        Debug.Log("True Item");
+                        food.GetComponent<SpriteRenderer>().sprite = checksprite;
+                        
                 }
-                else
-                {
-                    Debug.Log("Wrong Item");
-                    Debug.Log(food + " " + Player.Instance.GetKitchenObject().kitchenObjectSO);
+                    else
+                    {
+                        //Wrong Item
+                        Debug.Log("Wrong Item");
+                        Debug.Log(food + " " + Player.Instance.GetKitchenObject().kitchenObjectSO);
+                    }
                 }
             }
         }
     }
-}
+
 
