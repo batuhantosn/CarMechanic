@@ -7,6 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 291409553908262823, guid: 8d62fdd8687618144817955c277c2d0a, type: 3}
+      propertyPath: visualGameObjArray.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 291409553908262823, guid: 8d62fdd8687618144817955c277c2d0a, type: 3}
+      propertyPath: visualGameObjArray.Array.data[0]
+      value: 
+      objectReference: {fileID: 4979023041159180622}
+    - target: {fileID: 291409553908262823, guid: 8d62fdd8687618144817955c277c2d0a, type: 3}
+      propertyPath: visualGameObjArray.Array.data[1]
+      value: 
+      objectReference: {fileID: 4382882995968523253}
     - target: {fileID: 2643920188395385046, guid: 8d62fdd8687618144817955c277c2d0a, type: 3}
       propertyPath: kitchenObjectSO
       value: 
@@ -69,3 +81,13 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 91e8fe3de9249fc44b7bdd8050062896, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d62fdd8687618144817955c277c2d0a, type: 3}
+--- !u!1 &4382882995968523253 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2047703609552305386, guid: 8d62fdd8687618144817955c277c2d0a, type: 3}
+  m_PrefabInstance: {fileID: 2358134993809295135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4979023041159180622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7323077685833168465, guid: 8d62fdd8687618144817955c277c2d0a, type: 3}
+  m_PrefabInstance: {fileID: 2358134993809295135}
+  m_PrefabAsset: {fileID: 0}
