@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class DeliveryManager : BaseCounter
 
     public Sprite checksprite;
     private int deliveredItem = 3;
+    bool deliverCheckBool = false;
 
     public override void Interact(Player player)
     {
@@ -25,7 +27,11 @@ public class DeliveryManager : BaseCounter
                 //Player is carrying something
                 DeliverCheck();
                 player.GetMechanicObject().SetKitchenObjectParent(this);
-                this.mechanicObject.DestroySelf();
+                if (deliverCheckBool)
+                {
+                    this.mechanicObject.DestroySelf();
+                }
+                
 
             }
             else
@@ -72,7 +78,7 @@ public class DeliveryManager : BaseCounter
             deliveryItemsList[i].GetComponent<SpriteRenderer>().sprite = waitingRecipeSOList[i].sprite;
         }
     }
-    public void DeliverCheck()
+    public bool DeliverCheck()
     {
         
         if (waitingRecipeSOList.Count != 0)
@@ -82,6 +88,7 @@ public class DeliveryManager : BaseCounter
                 if (food.GetComponent<SpriteRenderer>().sprite == Player.Instance.GetMechanicObject().mechanicObjectSO.sprite)
                 {
                     //True Item
+                    return deliverCheckBool = true;
                     Debug.Log("True Item");
                     food.GetComponent<SpriteRenderer>().sprite = checksprite;
                     deliveredItem--;
@@ -103,6 +110,7 @@ public class DeliveryManager : BaseCounter
                 }
             }
         }
+        return deliverCheckBool = false;
     }
 }
 
