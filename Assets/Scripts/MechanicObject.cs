@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class MechanicObject : MonoBehaviour
 {
     public KitchenObjectSO mechanicObjectSO;
-    
 
+   
     private IMechanicObjectParent mechanicObjectParent;
     public KitchenObjectSO GetMechanicObjectSO()
     {
         return mechanicObjectSO;
     }
+    public void SetKitchenObject(KitchenObjectSO _KitchenObjectSO)
+    {
+        mechanicObjectSO= _KitchenObjectSO;
 
+    }
     public void SetKitchenObjectParent(IMechanicObjectParent mechanicObjectParent)
     {
         if (this.mechanicObjectParent != null)

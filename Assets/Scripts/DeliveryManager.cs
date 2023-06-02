@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Text;
@@ -14,8 +15,11 @@ public class DeliveryManager : BaseCounter
     [SerializeField] private int KitchenObjectCount;
 
     public Sprite checksprite;
-    private int deliveredItem = 3;
     bool deliverCheckBool = false;
+
+    private string eqweqw;
+
+    public GameObject deliveryCanvas;
 
     public override void Interact(Player player)
     {
@@ -53,6 +57,7 @@ public class DeliveryManager : BaseCounter
                 GetMechanicObject().SetKitchenObjectParent(player);
             }
         }
+
     }
 
     private void Awake()
@@ -73,9 +78,16 @@ public class DeliveryManager : BaseCounter
     }
     public void SetDeliveryItems()
     {
+        foreach (var item in deliveryCanvas.GetComponentsInChildren<MechanicObject>())
+        {
+            deliveryItemsList.Add(item.gameObject);
+        }
+
         for (int i = 0; i < waitingRecipeSOList.Count; i++)
         {
+            
             deliveryItemsList[i].GetComponent<SpriteRenderer>().sprite = waitingRecipeSOList[i].sprite;
+            deliveryItemsList[i].GetComponent<MechanicObject>().SetKitchenObject(waitingRecipeSOList[i]);
         }
     }
     public bool DeliverCheck()
@@ -83,35 +95,35 @@ public class DeliveryManager : BaseCounter
         
         if (waitingRecipeSOList.Count != 0)
         {
-            foreach (var food in deliveryItemsList)
+            for (int i = 0; i < deliveryItemsList.Count; i++)
             {
-                if (food.GetComponent<SpriteRenderer>().sprite == Player.Instance.GetMechanicObject().mechanicObjectSO.sprite)
+                if (deliveryItemsList[i].GetComponent<MechanicObject>().GetMechanicObjectSO() == Player.Instance.GetMechanicObject().mechanicObjectSO)
                 {
                     //True Item
-                    return deliverCheckBool = true;
+
                     Debug.Log("True Item");
-                    food.GetComponent<SpriteRenderer>().sprite = checksprite;
-                    deliveredItem--;
-                    Debug.Log(deliveredItem);
-                    if (deliveredItem==0)
+                    deliveryItemsList[i].GetComponent<SpriteRenderer>().sprite = checksprite;
+
+                    deliveryItemsList.RemoveAt(i);
+
+                    if (deliveryItemsList.Count==0)
                     {
-                        deliveredItem = 3;
                         GetReciveFromCar();
                         SetDeliveryItems();
                         //Give Gold
                     }
-                    break;
+                    return deliverCheckBool = true;
                 }
                 else
                 {
                     //Wrong Item
                     Debug.Log("Wrong Item");
-                    Debug.Log(food + " " + Player.Instance.GetMechanicObject().mechanicObjectSO);
                 }
             }
         }
+        Debug.LogError("waitingRecipeSOList.Count: " + waitingRecipeSOList.Count);
         return deliverCheckBool = false;
-    }
+    } 
 }
 
 

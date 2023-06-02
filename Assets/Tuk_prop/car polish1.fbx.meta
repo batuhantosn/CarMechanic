@@ -5,15 +5,25 @@ ModelImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Artboard 7
+    second: {fileID: 2100000, guid: dc473afcdbd852d43938a9c8a57006a1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 24ea3464d3eb104448b1d1ad293b0c69, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Artboard 7
-    second: {fileID: 2800000, guid: 3f67f9956d4747541a74893935c8b500, type: 3}
+    second: {fileID: 2800000, guid: de85a53911808ec45b089c8b13f43f41, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: UV_Texture
-    second: {fileID: 2800000, guid: 654f5e4a37f01b043a5919bba10bb0c3, type: 3}
+    second: {fileID: 2800000, guid: d9df9ea63483a164798641ac827aef51, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
