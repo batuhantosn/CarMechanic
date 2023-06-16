@@ -25,6 +25,8 @@ public class Player : MonoBehaviour, IMechanicObjectParent
 	private BaseCounter selectedCounter;
 	private MechanicObject mechanicObject;
 
+
+
 	private void Awake()
 	{
 		Instance = this;

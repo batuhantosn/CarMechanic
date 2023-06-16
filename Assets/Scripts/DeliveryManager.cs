@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class DeliveryManager : BaseCounter
 {
@@ -21,55 +22,83 @@ public class DeliveryManager : BaseCounter
 	private string eqweqw;
 
 	public GameObject deliveryCanvas;
+	public GameObject LockSpriteGO;
+	public TextMeshPro Cost;
 
 	public CarLiftManager CurrentCarLiftManager;
 
+
+
 	public override void Interact(Player player)
 	{
-		if (!HasMechanicObject())
+		if (CurrentCarLiftManager.IsLocked)
 		{
-			//No object here
-			if (player.HasMechanicObject())
+			// try unlocking
+			if (CarGameManager.Instance.SpendMoney(CurrentCarLiftManager.Cost))
 			{
-				//Player is carrying something
-				DeliverCheck();
-				player.GetMechanicObject().SetKitchenObjectParent(this);
-				if (deliverCheckBool)
-				{
-					this.mechanicObject.DestroySelf();
-
-				}
-
-
+				CurrentCarLiftManager.UnlockLift();
+				GetRecipeFromCar();
+				SetDeliveryItems();
 			}
-			else
-			{
-				//Player has nothing
-			}
-
 		}
 		else
 		{
-			//There is a object 
-			if (player.HasMechanicObject())
+			if (!HasMechanicObject())
 			{
-				//Player is carrying smthng
+				//No object here
+				if (player.HasMechanicObject())
+				{
+					//Player is carrying something
+					DeliverCheck();
+					player.GetMechanicObject().SetKitchenObjectParent(this);
+					if (deliverCheckBool)
+					{
+						this.mechanicObject.DestroySelf();
+					}
+				}
+				else
+				{
+					//Player has nothing
+				}
 			}
 			else
 			{
-				//PLayer is not carrying anything
-				GetMechanicObject().SetKitchenObjectParent(player);
+				//There is a object 
+				if (player.HasMechanicObject())
+				{
+					//Player is carrying smthng
+				}
+				else
+				{
+					//PLayer is not carrying anything
+					GetMechanicObject().SetKitchenObjectParent(player);
+				}
 			}
 		}
 
+
+
 	}
 
-	private void Awake()
+	public void InitilizeDeliveryManager()
 	{
-		GetReciveFromCar();
-		SetDeliveryItems();
+		if (!CurrentCarLiftManager.IsLocked)
+		{
+			GetRecipeFromCar();
+			SetDeliveryItems();
+		}
+		else
+		{
+			for (int i = 0; i < deliveryCanvas.transform.childCount; i++)
+			{
+				deliveryCanvas.transform.GetChild(i).gameObject.SetActive(false);
+			}
+			LockSpriteGO.SetActive(true);
+			Cost.text = CurrentCarLiftManager.Cost.ToString();
+		}
+
 	}
-	public void GetReciveFromCar()
+	public void GetRecipeFromCar()
 	{
 		waitingRecipeSOList = new List<KitchenObjectSO>();
 		for (int i = 0; i < KitchenObjectCount; i++)
@@ -82,6 +111,12 @@ public class DeliveryManager : BaseCounter
 	}
 	public void SetDeliveryItems()
 	{
+		for (int i = 0; i < deliveryCanvas.transform.childCount; i++)
+		{
+			deliveryCanvas.transform.GetChild(i).gameObject.SetActive(true);
+		}
+		LockSpriteGO.SetActive(false);
+
 		foreach (var item in deliveryCanvas.GetComponentsInChildren<MechanicObject>())
 		{
 			deliveryItemsList.Add(item.gameObject);
@@ -116,9 +151,10 @@ public class DeliveryManager : BaseCounter
 
 						DOVirtual.DelayedCall(4f, () =>
 						{
-							GetReciveFromCar();
+							GetRecipeFromCar();
 							SetDeliveryItems();
 						});
+
 
 						//Give Gold
 

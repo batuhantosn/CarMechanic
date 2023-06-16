@@ -19,7 +19,7 @@ public class CarGameManager : Singleton<CarGameManager>
 	{
 		Money = PlayerPrefs.GetInt("Money", 0);
 
-		UpdateMoneyText();
+		//UpdateMoneyText();
 	}
 
 	public bool SpendMoney(int amount)
@@ -31,7 +31,7 @@ public class CarGameManager : Singleton<CarGameManager>
 		{
 			Money -= amount;
 			PlayerPrefs.SetInt("Money", Money);
-			UpdateMoneyText();
+			//UpdateMoneyText();
 			return true;
 		}
 	}
@@ -40,7 +40,7 @@ public class CarGameManager : Singleton<CarGameManager>
 	{
 		Money += amount;
 		PlayerPrefs.SetInt("Money", Money);
-		UpdateMoneyText();
+		//UpdateMoneyText();
 	}
 
 	private void UpdateMoneyText()
@@ -48,7 +48,10 @@ public class CarGameManager : Singleton<CarGameManager>
 		MoneyTextUI.text = ((int)Money).ToString();
 	}
 
-
+	private void FixedUpdate()
+	{
+		MoneyTextUI.text = ((int)Money).ToString();
+	}
 	// Update is called once per frame
 	void Update()
 	{

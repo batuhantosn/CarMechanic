@@ -14,11 +14,13 @@ public class DriveableCarManager : Singleton<DriveableCarManager>
 {
 	public CinemachineVirtualCamera IdleCam;
 	public CinemachineVirtualCamera RaceCam;
-	public GameObject DriveableCar;
-	public RideableCar CurCarData;
+	public GameObject[] DriveableCars;
+	public GameObject CurrentDriveableCar;
+	public ArcadeVehicleController CurrentCarArcadeVC;
+
 	public GameObject CarStartPoint;
 	public GameMode CurrentMode;
-	public ArcadeVehicleController CurrentCarArcadeVC;
+
 
 	// Start is called before the first frame update
 	void Start()
@@ -50,16 +52,31 @@ public class DriveableCarManager : Singleton<DriveableCarManager>
 
 	public void ChangeCarSkin(int index)
 	{
-		for (int i = 0; i < CurCarData.CarSkins.Length; i++)
+		for (int i = 0; i < DriveableCars.Length; i++)
 		{
-			if (i != index) CurCarData.CarSkins[i].SetActive(false);
-			else CurCarData.CarSkins[i].SetActive(true);
+			if (i != index)
+			{
+				DriveableCars[i].SetActive(false);
+			}
+			else
+			{
+				CurrentDriveableCar = DriveableCars[i];
+				CurrentDriveableCar.SetActive(true);
+				CurrentCarArcadeVC = CurrentDriveableCar.GetComponent<ArcadeVehicleController>();
+
+				PrepareCarToRide();
+			}
+
 		}
 	}
 
 	public void PrepareCarToRide()
 	{
-		DriveableCar.transform.position = CarStartPoint.transform.position;
+		if (CurrentDriveableCar != null)
+		{
+			CurrentDriveableCar.transform.position = CarStartPoint.transform.position;
+			print("Ready to drive.");
+		}
 	}
 
 	public void StartDriving()
