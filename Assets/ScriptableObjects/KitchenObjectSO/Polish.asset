@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Polish
   m_EditorClassIdentifier: 
   prefab: {fileID: 4697950135579537212, guid: 5dee06b4e2c001046b0ca72a7445c438, type: 3}
-  sprite: {fileID: 21300000, guid: de85a53911808ec45b089c8b13f43f41, type: 3}
+  sprite: {fileID: 21300000, guid: e448081ad38deda48a9b925fa15ffdd3, type: 3}
   objectName: Polish
