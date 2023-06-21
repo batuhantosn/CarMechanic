@@ -20454,7 +20454,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4006419911722432986, guid: de60849ce80aa462ba706b593fd897f7, type: 3}
       propertyPath: Money
-      value: 100
+      value: 6000
       objectReference: {fileID: 0}
     - target: {fileID: 4006419911722432986, guid: de60849ce80aa462ba706b593fd897f7, type: 3}
       propertyPath: MoneyTextUI
